@@ -1,3 +1,35 @@
-<section class="d-flex align-items-center justify-content-center flex-column text-center">
-  <h1 class="fw-bold mb-3">Bienvenid@ </h1>
-</section>
+
+<div class="container mt-4">
+
+    <h2>Listado de Productos</h2>
+
+    <table class="table table-bordered table-hover">
+
+        <thead class="table-dark">
+            <tr>
+                <th>ID</th>
+                <th>Producto</th>
+                <th>Precio</th>
+                <th>Stock</th>
+            </tr>
+        </thead>
+
+        <tbody>
+
+            <tr *ngFor="let product of products">
+
+                <td>{{ product.id }}</td>
+
+                <td>{{ product.name }}</td>
+
+                <td>{{ product.price | currency }}</td>
+
+                <td>{{ product.stock }}</td>
+
+            </tr>
+
+        </tbody>
+
+    </table>
+
+</div>
