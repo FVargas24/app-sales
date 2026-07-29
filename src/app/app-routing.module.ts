@@ -7,8 +7,8 @@ import { SaleListComponent } from './components/sale-list/sale-list.component'; 
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
-  { path: 'ventas', component: SaleListComponent },
-  { path: 'ventas/nueva', component: SaleFormComponent },
+  { path: 'sales', component: SaleListComponent },
+  { path: 'sales/new', component: SaleFormComponent },
   { path: '', redirectTo: 'home', pathMatch: 'full' }
 ];
 
