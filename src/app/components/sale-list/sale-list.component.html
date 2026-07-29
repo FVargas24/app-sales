@@ -1,59 +1,84 @@
 <div class="page-shell">
-  <div class="container py-4">
+  <div class="container">
     <div class="modern-card">
       <div class="section-head">
         <div>
-          <p class="section-eyebrow">Movimientos</p>
+          <p class="section-eyebrow">
+            <i class="ri-receipt-line"></i>
+            Movimientos
+          </p>
           <h2>Listado de Ventas</h2>
+        </div>
+        <div class="d-none d-sm-block" *ngIf="!loading">
+          <span class="badge-pill badge-primary">
+            <i class="ri-file-list-3-line"></i>
+            {{ sales.length }} Ventas
+          </span>
         </div>
       </div>
 
       <div *ngIf="message" class="alert alert-success alert-dismissible fade show alert-modern">
-        {{ message }}
+        <i class="ri-checkbox-circle-fill fs-5"></i>
+        <span>{{ message }}</span>
         <button type="button" class="btn-close" (click)="message = ''"></button>
       </div>
 
-      <div *ngIf="loading" class="text-center my-4">
-        <div class="spinner-border" role="status">
+      <div *ngIf="loading" class="text-center my-5 py-4">
+        <div class="spinner-border text-primary" role="status">
           <span class="visually-hidden">Cargando...</span>
         </div>
+        <p class="text-muted mt-2 font-medium">Cargando historial de ventas...</p>
       </div>
 
       <div class="table-responsive" *ngIf="!loading">
         <table class="table modern-table">
           <thead>
             <tr>
-              <th>ID</th>
-              <th>Total</th>
-              <th>Fecha</th>
-              <th>Detalle de Productos</th>
-              <th>Acciones</th>
+              <th><i class="ri-hashtag me-1"></i>ID</th>
+              <th><i class="ri-money-dollar-circle-line me-1"></i>Total</th>
+              <th><i class="ri-calendar-event-line me-1"></i>Fecha</th>
+              <th><i class="ri-shopping-basket-2-line me-1"></i>Detalle de Productos</th>
+              <th class="text-center"><i class="ri-settings-3-line me-1"></i>Acciones</th>
             </tr>
           </thead>
           <tbody>
             <tr *ngFor="let sale of sales">
-              <td>{{ sale.id }}</td>
-              <td>{{ sale.total | currency }}</td>
-              <td>{{ sale.created_at | date:'yyyy-MM-dd' }}</td>
               <td>
-                <ul class="mb-0 ps-3 detail-list">
-                  <li *ngFor="let detail of sale.details">
-                    <strong>{{ detail.product }}</strong>
-                    (Cant: {{ detail.quantity }}) -
-                    Subtotal: {{ detail.subtotal | currency }}
-                  </li>
-                </ul>
+                <span class="sale-id">#{{ sale.id }}</span>
               </td>
               <td>
+                <span class="sale-total">{{ sale.total | currency }}</span>
+              </td>
+              <td>
+                <span class="badge-pill badge-neutral">
+                  <i class="ri-time-line"></i>
+                  {{ sale.created_at | date:'yyyy-MM-dd' }}
+                </span>
+              </td>
+              <td>
+                <div class="detail-chips">
+                  <div class="detail-chip" *ngFor="let detail of sale.details">
+                    <span class="product-title">{{ detail.product }}</span>
+                    <span class="badge-pill badge-primary py-0 px-2">x{{ detail.quantity }}</span>
+                    <span class="subtotal-chip">{{ detail.subtotal | currency }}</span>
+                  </div>
+                </div>
+              </td>
+              <td class="text-center">
                 <button
                   class="btn btn-danger btn-sm"
                   (click)="deleteSale(sale.id)">
+                  <i class="ri-delete-bin-6-line"></i>
                   Eliminar
                 </button>
               </td>
             </tr>
             <tr *ngIf="sales.length === 0">
-              <td colspan="5" class="text-center empty-state">No hay ventas registradas</td>
+              <td colspan="5" class="text-center empty-state">
+                <i class="ri-inbox-archive-line empty-icon"></i>
+                <p class="mb-0 fw-semibold">No hay ventas registradas</p>
+                <small class="text-muted">Crea una nueva venta para comenzar a ver movimientos.</small>
+              </td>
             </tr>
           </tbody>
         </table>

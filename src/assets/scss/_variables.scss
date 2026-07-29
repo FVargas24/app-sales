@@ -1,37 +1,43 @@
 /*================ My Variables ================*/
-$my-primary-color        : #3498DB;
-$my-danger-color         : #FB2E2E;
-$my-dark-color           : #141824;
-$my-secondary-light-color: #EFF2F6;
-$my-secondary-color      : #858A9B;
-$my-white-color          : #FFFFFF;
-$my-border-color         : #D9D9D9;
-$my-column-title-color   : #31374A;
-$my-body-color           : #F5F7FA;
+$my-primary-color        : #2563eb;
+$my-primary-hover        : #1d4ed8;
+$my-primary-light        : #eff6ff;
+$my-danger-color         : #ef4444;
+$my-danger-hover         : #dc2626;
+$my-danger-light         : #fef2f2;
+$my-dark-color           : #0f172a;
+$my-secondary-light-color: #f8fafc;
+$my-secondary-color      : #64748b;
+$my-white-color          : #ffffff;
+$my-border-color         : #e2e8f0;
+$my-column-title-color   : #475569;
+$my-body-color           : #f1f5f9;
+$my-success-color        : #10b981;
 
 /*================ Bootstrap Variables ================*/
-$font-family-base: 'Nunito Sans', sans-serif;
+$font-family-base: 'Plus Jakarta Sans', 'Nunito Sans', -apple-system, BlinkMacSystemFont, sans-serif;
 
 $primary: $my-primary-color;
 $danger: $my-danger-color;
 $body-bg: $my-body-color;
 $body-color: $my-dark-color;
 
-$table-bg: none;
-$table-cell-padding-y: 1.25rem;
+$table-bg: transparent;
+$table-cell-padding-y: 1rem;
+$table-cell-padding-x: 1.25rem;
 $table-border-color: $my-border-color;
 
-$btn-padding-y: 8px;
-$btn-padding-x: 20px;
-$btn-border-radius: 3px;
-$btn-font-weight: bold;
+$btn-padding-y: 0.625rem;
+$btn-padding-x: 1.25rem;
+$btn-border-radius: 0.75rem;
+$btn-font-weight: 600;
 
-$input-padding-y: 0.875rem;
+$input-padding-y: 0.65rem;
 $input-padding-x: 1rem;
-$input-border-radius: 3px;
+$input-border-radius: 0.75rem;
 $input-bg: $my-white-color;
 
-$navbar-padding-y: 0.75rem;
+$navbar-padding-y: 0.875rem;
 $navbar-dark-color: $my-secondary-color;
 $navbar-dark-hover-color: $my-primary-color;
 $navbar-dark-active-color: $my-primary-color;

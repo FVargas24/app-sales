@@ -1,11 +1,19 @@
-
 <div class="page-shell">
-  <div class="container py-4">
+  <div class="container">
     <div class="modern-card">
       <div class="section-head">
         <div>
-          <p class="section-eyebrow">Catálogo</p>
+          <p class="section-eyebrow">
+            <i class="ri-store-2-line"></i>
+            Catálogo
+          </p>
           <h2>Listado de Productos</h2>
+        </div>
+        <div class="d-none d-sm-block">
+          <span class="badge-pill badge-primary">
+            <i class="ri-box-3-line"></i>
+            {{ products.length }} Productos
+          </span>
         </div>
       </div>
 
@@ -13,18 +21,44 @@
         <table class="table modern-table">
           <thead>
             <tr>
-              <th>ID</th>
-              <th>Producto</th>
-              <th>Precio</th>
-              <th>Stock</th>
+              <th><i class="ri-hashtag me-1"></i>ID</th>
+              <th><i class="ri-shopping-bag-3-line me-1"></i>Producto</th>
+              <th><i class="ri-price-tag-3-line me-1"></i>Precio</th>
+              <th><i class="ri-stack-line me-1"></i>Stock</th>
             </tr>
           </thead>
           <tbody>
             <tr *ngFor="let product of products">
-              <td>{{ product.id }}</td>
-              <td>{{ product.name }}</td>
-              <td>{{ product.price | currency }}</td>
-              <td>{{ product.stock }}</td>
+              <td>
+                <span class="product-id">#{{ product.id }}</span>
+              </td>
+              <td>
+                <div class="d-flex align-items-center gap-2">
+                  <div class="product-icon-avatar">
+                    <i class="ri-box-3-fill"></i>
+                  </div>
+                  <span class="fw-semibold text-dark">{{ product.name }}</span>
+                </div>
+              </td>
+              <td>
+                <span class="price-tag">{{ product.price | currency }}</span>
+              </td>
+              <td>
+                <span class="badge-pill" [ngClass]="{
+                  'badge-success': product.stock > 10,
+                  'badge-warning': product.stock <= 10 && product.stock > 0,
+                  'badge-neutral': product.stock === 0
+                }">
+                  <i class="ri-checkbox-blank-circle-fill fs-6" style="font-size: 6px !important;"></i>
+                  {{ product.stock }} unidades
+                </span>
+              </td>
+            </tr>
+            <tr *ngIf="products.length === 0">
+              <td colspan="4" class="text-center text-muted py-4">
+                <i class="ri-inbox-line fs-2 d-block mb-2 text-secondary"></i>
+                No se encontraron productos disponibles.
+              </td>
             </tr>
           </tbody>
         </table>

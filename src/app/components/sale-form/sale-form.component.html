@@ -1,9 +1,12 @@
 <div class="page-shell">
-  <div class="container py-4">
+  <div class="container">
     <div class="modern-card">
       <div class="section-head">
         <div>
-          <p class="section-eyebrow">Ventas</p>
+          <p class="section-eyebrow">
+            <i class="ri-shopping-cart-2-line"></i>
+            Ventas
+          </p>
           <h2>Nueva Venta</h2>
         </div>
       </div>
@@ -12,7 +15,9 @@
         'alert-success': messageType === 'success',
         'alert-danger': messageType === 'error'
       }">
-        {{ message }}
+        <i *ngIf="messageType === 'success'" class="ri-checkbox-circle-fill fs-5"></i>
+        <i *ngIf="messageType === 'error'" class="ri-error-warning-fill fs-5"></i>
+        <span>{{ message }}</span>
       </div>
 
       <form (ngSubmit)="createSale()" class="sale-form">
@@ -20,31 +25,37 @@
           <table class="table modern-table sale-table">
             <thead>
               <tr>
-                <th>Producto</th>
-                <th>Precio</th>
-                <th>Stock</th>
-                <th>Cantidad</th>
-                <th>Subtotal</th>
-                <th>Acción</th>
+                <th><i class="ri-shopping-bag-3-line me-1"></i>Producto</th>
+                <th><i class="ri-price-tag-3-line me-1"></i>Precio</th>
+                <th><i class="ri-stack-line me-1"></i>Stock</th>
+                <th><i class="ri-hashtag me-1"></i>Cantidad</th>
+                <th><i class="ri-calculator-line me-1"></i>Subtotal</th>
+                <th class="text-center"><i class="ri-settings-3-line me-1"></i>Acción</th>
               </tr>
             </thead>
             <tbody>
               <tr *ngFor="let item of items; let i = index">
-                <td>
+                <td style="min-width: 200px;">
                   <select
-                    class="form-control modern-input"
+                    class="form-select modern-input"
                     [(ngModel)]="item.product_id"
                     name="product_{{i}}"
                     required>
-                    <option [ngValue]="0">Seleccione...</option>
+                    <option [ngValue]="0">Seleccione un producto...</option>
                     <option *ngFor="let product of products" [ngValue]="product.id">
                       {{ product.name }}
                     </option>
                   </select>
                 </td>
-                <td>{{ getProductPrice(item.product_id) | currency }}</td>
-                <td>{{ getProductStock(item.product_id) }}</td>
                 <td>
+                  <span class="price-val">{{ getProductPrice(item.product_id) | currency }}</span>
+                </td>
+                <td>
+                  <span class="badge-pill badge-neutral">
+                    {{ getProductStock(item.product_id) }}
+                  </span>
+                </td>
+                <td style="max-width: 130px;">
                   <input
                     type="number"
                     class="form-control modern-input"
@@ -53,13 +64,18 @@
                     min="1"
                     required>
                 </td>
-                <td>{{ getSubtotal(item) | currency }}</td>
                 <td>
+                  <span class="subtotal-val fw-bold text-primary">
+                    {{ getSubtotal(item) | currency }}
+                  </span>
+                </td>
+                <td class="text-center">
                   <button
                     type="button"
                     class="btn btn-danger btn-sm"
                     (click)="removeItem(i)"
                     [disabled]="items.length === 1">
+                    <i class="ri-delete-bin-line"></i>
                     Quitar
                   </button>
                 </td>
@@ -68,12 +84,15 @@
           </table>
         </div>
 
-        <div class="form-actions">
+        <div class="form-actions d-flex flex-wrap align-items-center justify-content-between gap-3 pt-3">
           <button type="button" class="btn btn-secondary" (click)="addItem()">
+            <i class="ri-add-line"></i>
             Agregar Producto
           </button>
 
-          <button type="submit" class="btn btn-primary" [disabled]="loading">
+          <button type="submit" class="btn btn-primary btn-lg px-4" [disabled]="loading">
+            <i *ngIf="!loading" class="ri-check-line"></i>
+            <span *ngIf="loading" class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
             <span *ngIf="loading">Procesando...</span>
             <span *ngIf="!loading">Crear Venta</span>
           </button>
