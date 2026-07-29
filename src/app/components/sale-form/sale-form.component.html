@@ -1,0 +1,75 @@
+<div class="container mt-4">
+  <h2>Nueva Venta</h2>
+
+  <div *ngIf="message" class="alert" [ngClass]="{
+    'alert-success': messageType === 'success',
+    'alert-danger': messageType === 'error'
+  }">
+    {{ message }}
+  </div>
+
+  <form (ngSubmit)="createSale()">
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th>Producto</th>
+          <th>Precio</th>
+          <th>Stock</th>
+          <th>Cantidad</th>
+          <th>Subtotal</th>
+          <th>Acción</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of items; let i = index">
+          <td>
+            <select 
+              class="form-control" 
+              [(ngModel)]="item.product_id" 
+              name="product_{{i}}"
+              required>
+              <option [ngValue]="0">Seleccione...</option>
+              <option *ngFor="let product of products" [ngValue]="product.id">
+                {{ product.name }}
+              </option>
+            </select>
+          </td>
+          <td>{{ getProductPrice(item.product_id) | currency }}</td>
+          <td>{{ getProductStock(item.product_id) }}</td>
+          <td>
+            <input 
+              type="number" 
+              class="form-control" 
+              [(ngModel)]="item.quantity" 
+              name="quantity_{{i}}"
+              min="1"
+              required>
+          </td>
+          <td>{{ getSubtotal(item) | currency }}</td>
+          <td>
+            <button 
+              type="button" 
+              class="btn btn-danger btn-sm" 
+              (click)="removeItem(i)"
+              [disabled]="items.length === 1">
+              Eliminar
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="mb-3">
+      <button type="button" class="btn btn-secondary" (click)="addItem()">
+        Agregar Producto
+      </button>
+    </div>
+
+    <div class="mb-3">
+      <button type="submit" class="btn btn-primary" [disabled]="loading">
+        <span *ngIf="loading">Procesando...</span>
+        <span *ngIf="!loading">Crear Venta</span>
+      </button>
+    </div>
+  </form>
+</div>
