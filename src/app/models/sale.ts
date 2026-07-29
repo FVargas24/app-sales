@@ -13,3 +13,16 @@ export interface SaleResponse {
   sale_id: number;
   total: number;
 }
+
+export interface SaleDetail {
+  product: string;
+  quantity: number;
+  subtotal: number;
+}
+
+export interface Sale {
+  id: number;
+  total: number;
+  created_at: string;
+  details: SaleDetail[];
+}
