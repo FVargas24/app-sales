@@ -4,8 +4,18 @@
 @import 'assets/scss/button';
 @import 'toastify-js/src/toastify';
 
+body {
+  font-family: 'Nunito Sans', sans-serif;
+  background: linear-gradient(180deg, #f8fbff 0%, $my-body-color 100%);
+  color: $my-dark-color;
+}
+
 .section-title {
   margin: 0;
   font-weight: bold;
   color: $my-dark-color;
+}
+
+main {
+  min-height: calc(100vh - 72px);
 }

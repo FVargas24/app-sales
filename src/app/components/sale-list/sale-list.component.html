@@ -1,52 +1,63 @@
-<div class="container mt-4">
-  <h2>Listado de Ventas</h2>
+<div class="page-shell">
+  <div class="container py-4">
+    <div class="modern-card">
+      <div class="section-head">
+        <div>
+          <p class="section-eyebrow">Movimientos</p>
+          <h2>Listado de Ventas</h2>
+        </div>
+      </div>
 
-  <div *ngIf="message" class="alert alert-success alert-dismissible fade show">
-    {{ message }}
-    <button type="button" class="btn-close" (click)="message = ''"></button>
-  </div>
+      <div *ngIf="message" class="alert alert-success alert-dismissible fade show alert-modern">
+        {{ message }}
+        <button type="button" class="btn-close" (click)="message = ''"></button>
+      </div>
 
-  <div *ngIf="loading" class="text-center my-4">
-    <div class="spinner-border" role="status">
-      <span class="visually-hidden">Cargando...</span>
+      <div *ngIf="loading" class="text-center my-4">
+        <div class="spinner-border" role="status">
+          <span class="visually-hidden">Cargando...</span>
+        </div>
+      </div>
+
+      <div class="table-responsive" *ngIf="!loading">
+        <table class="table modern-table">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Total</th>
+              <th>Fecha</th>
+              <th>Detalle de Productos</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let sale of sales">
+              <td>{{ sale.id }}</td>
+              <td>{{ sale.total | currency }}</td>
+              <td>{{ sale.created_at | date:'yyyy-MM-dd' }}</td>
+              <td>
+                <ul class="mb-0 ps-3 detail-list">
+                  <li *ngFor="let detail of sale.details">
+                    <strong>{{ detail.product }}</strong>
+                    (Cant: {{ detail.quantity }}) -
+                    Subtotal: {{ detail.subtotal | currency }}
+                  </li>
+                </ul>
+              </td>
+              <td>
+                <button
+                  class="btn btn-danger btn-sm"
+                  (click)="deleteSale(sale.id)">
+                  Eliminar
+                </button>
+              </td>
+            </tr>
+            <tr *ngIf="sales.length === 0">
+              <td colspan="5" class="text-center empty-state">No hay ventas registradas</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
-
-  <table class="table table-bordered table-hover" *ngIf="!loading">
-    <thead>
-      <tr>
-        <th>ID</th>
-        <th>Total</th>
-        <th>Fecha</th>
-        <th>Detalle de Productos</th>
-        <th>Acciones</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let sale of sales">
-        <td>{{ sale.id }}</td>
-        <td>{{ sale.total | currency }}</td>
-        <td>{{ sale.created_at | date:'yyyy-MM-dd' }}</td>
-        <td>
-          <ul class="mb-0 ps-3">
-            <li *ngFor="let detail of sale.details">
-              <strong>{{ detail.product }}</strong> 
-              (Cant: {{ detail.quantity }}) - 
-              Subtotal: {{ detail.subtotal | currency }}
-            </li>
-          </ul>
-        </td>
-        <td>
-          <button 
-            class="btn btn-danger btn-sm" 
-            (click)="deleteSale(sale.id)">
-            Eliminar
-          </button>
-        </td>
-      </tr>
-      <tr *ngIf="sales.length === 0">
-        <td colspan="5" class="text-center">No hay ventas registradas</td>
-      </tr>
-    </tbody>
-  </table>
 </div>
